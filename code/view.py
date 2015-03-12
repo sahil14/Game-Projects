@@ -30,17 +30,10 @@ TEXTCOLOR = WHITE
 BUTTONCOLOR = TURQUOISE
 BORDERCOLOR = DARKBLUE
 BASICFONTSIZE = 20
-BASICFONTSIZESMALL = 13
-
 
 
 XMARGIN = 140   #int((WINDOWWIDTH-(CELLSIZE*BOARDWIDTH+(BOARDWIDTH-1)))/2)
 YMARGIN = 50    #int((WINDOWHEIGHT-(CELLSIZE*BOARDHEIGHT+(BOARDHEIGHT-1)))/2)
-
-UP = 'up'
-DOWN = 'down'
-LEFT = 'left'
-RIGHT = 'right'
 
 _image_library = {} # dictionary to store images
 
@@ -77,7 +70,6 @@ def main():
 	DISPLAYWINDOW = pygame.display.set_mode((WINDOWWIDTH,WINDOWHEIGHT))
 	pygame.display.set_caption('The Three Musketeers')
 	BASICFONT = pygame.font.Font('freesansbold.ttf',BASICFONTSIZE)
-	BASICFONTSMALL = pygame.font.Font('freesansbold.ttf',BASICFONTSIZESMALL)
 
 	# Button class objects as buttons
 	buttons = [Button('undo.png',(90,40)),Button('reset.png',(190,40)),Button('quit.png',(290,40))] 
@@ -301,12 +293,6 @@ def makeText(text,color,bgcolor,top,left):
 	DISPLAYWINDOW.blit(textSurf,textRect)
 	#return (textSurf,textRect)
 
-def makeTextSmall(text,color,top,left):
-	textSurfSmall = BASICFONTSMALL.render(text,True,color)
-	textRectSmall = textSurfSmall.get_rect()
-	textRectSmall.topleft = (top,left)
-	DISPLAYWINDOW.blit(textSurfSmall,textRectSmall)
-
 def drawScore(board):
 	# function for drawing the score on the board
 	# +10 for each soldier killed and -50 if two musketeers are in same row or same column
@@ -363,13 +349,13 @@ def drawHistoryTable(movesList):
 		imageRect = imageSurf.get_rect()
 		imageRect.center = 	left+20,top+i*31+15
 
-		pygame.draw.rect(DISPLAYWINDOW,BLACK,(left,top+i*31,50,30),3)
-		pygame.draw.rect(DISPLAYWINDOW,color,(left,top+i*31,50,30))
+		pygame.draw.rect(DISPLAYWINDOW,BLACK,(left,top+i*31,70,30),3)
+		pygame.draw.rect(DISPLAYWINDOW,color,(left,top+i*31,70,30))
 		DISPLAYWINDOW.blit(imageSurf,imageRect)
 			
-		pygame.draw.rect(DISPLAYWINDOW,BLACK,(left+50,top+i*31,150,30),3)
-		pygame.draw.rect(DISPLAYWINDOW,color,(left+50,top+i*31,150,30))
-		makeTextSmall(movesList[i][1],BLACK,left+100,top+i*31+10)
+		pygame.draw.rect(DISPLAYWINDOW,BLACK,(left+70,top+i*31,130,30),3)
+		pygame.draw.rect(DISPLAYWINDOW,color,(left+70,top+i*31,130,30))
+		makeText(movesList[i][1],BLACK,BGCOLOR,left+100,top+i*31+5)
 
 	tableht = min(numMoves,13)	
 	pygame.draw.rect(DISPLAYWINDOW,BORDERCOLOR,(600,130,200,(tableht+1)*31),3)	
@@ -439,14 +425,14 @@ def drawBoard(board,spotx,spoty,movesList):
 	makeText('History',DARKBLUE,BGCOLOR,660,100)
 	pygame.draw.rect(DISPLAYWINDOW,CELLCOLOR,(600,130,200,90))
 
-	pygame.draw.rect(DISPLAYWINDOW,BLACK,(600,130,50,30),3)
-	pygame.draw.rect(DISPLAYWINDOW,LIGHTBLUE,(600,130,50,30))
+	pygame.draw.rect(DISPLAYWINDOW,BLACK,(600,130,70,30),3)
+	pygame.draw.rect(DISPLAYWINDOW,LIGHTBLUE,(600,130,70,30))
 
-	pygame.draw.rect(DISPLAYWINDOW,BLACK,(650,130,150,30),3)
-	pygame.draw.rect(DISPLAYWINDOW,LIGHTBLUE,(650,130,150,30))
+	pygame.draw.rect(DISPLAYWINDOW,BLACK,(670,130,130,30),3)
+	pygame.draw.rect(DISPLAYWINDOW,LIGHTBLUE,(670,130,130,30))
 	
-	makeTextSmall("Player",BLACK,605,140)
-	makeTextSmall("Moves",BLACK,700,140)
+	makeText("Player",BLACK,BGCOLOR,605,135)
+	makeText("Moves",BLACK,BGCOLOR,700,135)
 				
 	for i in range(BOARDWIDTH):
 		makeText(str(i+1),WHITE,BGCOLOR,YMARGIN + (i*CELLSIZE) + i-3 + int(CELLSIZE/2),XMARGIN-30)
